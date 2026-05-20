@@ -177,6 +177,7 @@ def extract_from_text(text: str) -> Dict[str, Any]:
                 {"role": "user", "content": user_prompt},
             ],
             temperature=0.0,
+            max_tokens=1024,
         )
         ai_text = response.choices[0].message.content
         if not ai_text:
