@@ -162,34 +162,38 @@ PR merged to main → GitHub Actions:
 
 ## 7. Diagram: Production Architecture
 
-┌─────────────────────────────────────────────────────────┐
-│                    Hetzner CX22 VPS                      │
-│                                                          │
-│  ┌──────────┐  ┌───────────┐  ┌──────────────────────┐ │
-│  │  Nginx   │  │ Streamlit  │  │      FastAPI          │ │
-│  │  (SSL)   │──│  :8501     │──│      :8000            │ │
-│  │  :443    │  │            │  │  ┌─────────────────┐  │ │
-│  └──────────┘  └───────────┘  │  │  app/services/   │  │ │
-│                                │  │  ai.py           │  │ │
-│                                │  │  (LiteLLM)       │  │ │
-│                                │  └────────┬────────┘  │ │
-│                                └───────────┼───────────┘ │
-│                                            │             │
-│                    ┌───────────────────────┼───────┐     │
-│                    │  Langfuse (opt.)      │       │     │
-│                    │  Prometheus           │       │     │
-│                    │  node_exporter        │       │     │
-│                    └───────────────────────┼───────┘     │
-└────────────────────────────────────────────┼────────────┘
-                                             │
-                    ┌────────────────────────┼────────────┐
-                    │        Internet        │            │
-                    └────────────────────────┼────────────┘
-                                             │
-              ┌──────────────────────────────┼──────────────────────┐
-              │                              │                      │
-       ┌──────┴──────┐              ┌────────┴────────┐    ┌───────┴───────┐
-       │  OpenRouter  │              │   Groq (Whisper) │    │ GitHub Actions │
-       │  (Pixtral,   │              │   direct API     │    │ (CI/CD)        │
-       │  Gemini Flash)│             └─────────────────┘    └───────────────┘
-       └──────────────┘
+```mermaid
+graph TD
+    subgraph Internet
+        User[Sales Rep Browser]
+        GH[GitHub Actions CI/CD]
+    end
+
+    subgraph Hetzner_VPS["Hetzner CX22 VPS (Debian 12)"]
+        Nginx[Nginx :443 SSL]
+        Streamlit[Streamlit :8501]
+        FastAPI[FastAPI :8000]
+        Storage[("visits.json / SQLite")]
+        Prometheus[Prometheus Metrics]
+        Langfuse[Langfuse Evals]
+        NodeExporter[Node Exporter]
+
+        Nginx --> Streamlit
+        Nginx --> FastAPI
+        FastAPI --> Storage
+        FastAPI --> Streamlit
+        FastAPI --> Prometheus
+        FastAPI --> Langfuse
+        NodeExporter --> Prometheus
+    end
+
+    subgraph AI_Providers[AI Providers]
+        OpenRouter[OpenRouter<br/>Pixtral Large, Gemini Flash]
+        Groq[Groq<br/>Whisper]
+    end
+
+    User --> Nginx
+    GH -->|Deploy| Hetzner_VPS
+    FastAPI -->|LiteLLM| OpenRouter
+    FastAPI -->|LiteLLM| Groq
+```
