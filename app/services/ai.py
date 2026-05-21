@@ -139,7 +139,7 @@ def describe_image(image_path: str) -> str:
 
     try:
         response = litellm.completion(
-            model="openrouter/mistralai/pixtral-12b",
+            model="openrouter/mistralai/pixtral-large-2411",
             messages=messages,
             temperature=0.2,
         )
