@@ -12,8 +12,6 @@ import sys
 from typing import Any, Dict
 
 import litellm
-from dotenv import load_dotenv
-load_dotenv()  # take environment variables from .env
 
 from app.prompts import get_extraction_system_prompt, get_extraction_user_prompt
 
