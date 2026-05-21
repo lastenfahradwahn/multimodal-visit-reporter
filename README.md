@@ -189,8 +189,12 @@ Production infrastructure design: [`INFRASTRUCTURE.md`](INFRASTRUCTURE.md)
 
 
 ## Demo
-[Download the walkthrough (MP4](https://drive.google.com/file/d/15JVrRHVJpp1YlYuUSy5HUKo5VJD5cEOX/view?usp=sharing)
 
+### Image
+[Download the image walkthrough (MP4](https://drive.google.com/file/d/15JVrRHVJpp1YlYuUSy5HUKo5VJD5cEOX/view?usp=sharing)
+
+### Audio
+[Download the audio walkthrough (MP4)](https://https://drive.google.com/file/d/1jqmjMUsfmZINmka5kRgK03aD6w41tc6U/view?usp=sharing)
 
 ## License
 
