@@ -187,6 +187,11 @@ data/
 Full decision documentation: [`DECISIONS.md`](DECISIONS.md)  
 Production infrastructure design: [`INFRASTRUCTURE.md`](INFRASTRUCTURE.md)
 
+
+## Demo
+[Download the walkthrough (MP4](https://drive.google.com/file/d/15JVrRHVJpp1YlYuUSy5HUKo5VJD5cEOX/view?usp=sharing)
+
+
 ## License
 
 MIT? (SBOM Pending).
